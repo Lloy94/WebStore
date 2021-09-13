@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <h3>Сотрудники</h3>
+    <h2>Сотрудники</h2>
     <hr />
 
     <table>
@@ -23,9 +23,11 @@
         </thead>
         <tbody>
             @foreach (var employee in Model)
-            {
+            {                
                 <tr>
-                    <td>@employee.Id</td>
+                    <td>
+                    <a href="/Employee">@employee.Id</a>
+                    </td>
                     <td>@employee.LastName</td>
                     <td>@employee.Name</td>
                     <td>@employee.Patronymic</td>

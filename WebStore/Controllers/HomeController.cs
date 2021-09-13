@@ -12,6 +12,8 @@ namespace WebStore.Controllers
             new Employee { Id = 2, LastName = "Петров", Name = "Пётр", Patronymic = "Петрович", Age = 31, Info = "Второй сотрудник" },
             new Employee { Id = 3, LastName = "Сидоров", Name = "Сидор", Patronymic = "Сидорович", Age = 18, Info = "Третий сотрудник" },
         };
+
+        public Employee __Employee;
         public IActionResult Index()
         {
             return View();
@@ -20,6 +22,11 @@ namespace WebStore.Controllers
         public IActionResult Employees()
         {
             return View(__Employees);
+        }
+
+        public IActionResult Employee()
+        {
+            return View(__Employee);
         }
     }
 }
