@@ -3,21 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WebStore.Data;
 using WebStore.Models;
 
 namespace WebStore.Controllers
 {
     public class EmployeesController : Controller
     {
-        private static readonly List<Employee> __Employees = new()
+        private readonly IEnumerable<Employee> _Employees;
+
+        public EmployeesController()
         {
-            new Employee { Id = 1, LastName = "Иванов", Name = "Иван", Patronymic = "Иванович", Age = 27, Info = "Первый сотрудник" },
-            new Employee { Id = 2, LastName = "Петров", Name = "Пётр", Patronymic = "Петрович", Age = 31, Info = "Второй сотрудник" },
-            new Employee { Id = 3, LastName = "Сидоров", Name = "Сидор", Patronymic = "Сидорович", Age = 18, Info = "Третий сотрудник" },
-        };
+            _Employees = TestData.Employees;
+        }
         public IActionResult Index()
         {
-            return View(__Employees);
+            return View(_Employees);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var employee = _Employees.SingleOrDefault(e => e.Id == id);
+            if (employee is null)
+                return NotFound();
+
+            return View(employee);
         }
     }
 }
