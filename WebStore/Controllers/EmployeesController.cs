@@ -3,31 +3,102 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using WebStore.Data;
 using WebStore.Models;
+using WebStore.Services.Interfaces;
+using WebStore.ViewModels;
 
 namespace WebStore.Controllers
 {
     public class EmployeesController : Controller
     {
-        private readonly IEnumerable<Employee> _Employees;
+        private readonly IEmployeeData _EmployeeData;
+        private readonly ILogger<EmployeesController> _Logger;
 
-        public EmployeesController()
+        public EmployeesController(IEmployeeData EmployeeData, ILogger<EmployeesController> Logger)
         {
-            _Employees = TestData.Employees;
+            _EmployeeData = EmployeeData;
+            _Logger = Logger;
         }
         public IActionResult Index()
         {
-            return View(_Employees);
+            return View(_EmployeeData.GetAll());
         }
 
         public IActionResult Details(int id)
         {
-            var employee = _Employees.SingleOrDefault(e => e.Id == id);
+            var employee = _EmployeeData.GetById(id);
             if (employee is null)
                 return NotFound();
 
             return View(employee);
+        }
+
+        public IActionResult Create() => View("Edit", new EmployeeViewModel());
+
+        public IActionResult Edit(int? id)
+        {
+            if (id is null) return View(new EmployeeViewModel());
+
+            var employee = _EmployeeData.GetById((int)id);
+            var model = new EmployeeViewModel
+            {
+                Id = employee.Id,
+                Name = employee.Name,
+                LastName = employee.LastName,
+                Patronymic = employee.Patronymic,
+                Age = employee.Age,
+                Info=employee.Info,
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EmployeeViewModel model)
+        {
+            var employee = new Employee
+            {
+                Id = model.Id,
+                Name = model.Name,
+                LastName = model.LastName,
+                Patronymic = model.Patronymic,
+                Age = model.Age,
+                Info = model.Info,
+            };
+
+            if (employee.Id == 0) _EmployeeData.Add(employee);
+            else _EmployeeData.Update(employee);
+
+            return RedirectToAction(nameof(Index));
+
+        }
+
+        public IActionResult Delete(int id)
+        {
+            if (id < 0) return BadRequest();
+
+            var employee = _EmployeeData.GetById(id);
+            if (employee is null) return NotFound();
+
+            return View(new EmployeeViewModel
+            {
+                Id = employee.Id,
+                Name = employee.Name,
+                LastName = employee.LastName,
+                Patronymic = employee.Patronymic,
+                Age = employee.Age,
+                Info = employee.Info,
+            });
+        }
+
+        [HttpPost]
+
+        public IActionResult DeleteConfirmed(int id)
+        {
+            _EmployeeData.Delete(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
