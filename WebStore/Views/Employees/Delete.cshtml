@@ -1,7 +1,7 @@
 ﻿@model WebStore.ViewModels.EmployeeViewModel
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Delete";
 }
 
 <!DOCTYPE html>
@@ -53,7 +53,7 @@
         </dd>
     </dl>
     
-    <form asp-action="Delete">
+    <form asp-action="DeleteConfirmed" asp-route="@Model.Id">
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>
