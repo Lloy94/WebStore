@@ -21,7 +21,7 @@ namespace WebStore.Services
             _CurrentMaxId = TestData.Employees.Max(e => e.Id);
         }
 
-        public IEnumerable<Employee> GetALL ()
+        public IEnumerable<Employee> GetAll ()
         {
             return TestData.Employees;
         }

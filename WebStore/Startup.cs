@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebStore.Services;
+using WebStore.Services.Interfaces;
 
 namespace WebStore
 {
@@ -11,6 +13,7 @@ namespace WebStore
     {       
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IEmployeeData, InMemoryEmployeesData>();
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
         }
@@ -24,6 +27,8 @@ namespace WebStore
 
             app.UseStaticFiles();
             app.UseRouting();
+
+            app.UseWelcomePage("/welcome");
 
             app.UseEndpoints(endpoints =>
             {
