@@ -13,6 +13,6 @@ namespace WebStore.Controllers
             return View();
         }
 
-      
+        public IActionResult Status(string Code) => Content($"Status code - {Code}");
     }
 }
