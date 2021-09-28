@@ -27,6 +27,8 @@ namespace WebStore
                 app.UseBrowserLink();
             }
 
+            app.UseStatusCodePagesWithRedirects("~/home/status/{0}");
+
             app.UseStaticFiles();
             app.UseRouting();
 

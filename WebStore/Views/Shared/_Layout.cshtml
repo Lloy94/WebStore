@@ -6,10 +6,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Home | E-Shopper</title>
-    
-    <partial name="Partial/_Styles"/>
 
-    @*<link rel="shortcut icon" href="images/ico/favicon.ico">*@   
+    <partial name="Partial/_Styles" />
+
+    @await RenderSectionAsync("Styles", false)
+
+    @*<link rel="shortcut icon" href="images/ico/favicon.ico">*@
 </head><!--/head-->
 
 <body>
@@ -20,5 +22,7 @@
     <partial name="Partial/_Footer" />
 
     <partial name="Partial/_Scripts" />
+
+    @await RenderSectionAsync("Scripts", false)
 </body>
 </html>
