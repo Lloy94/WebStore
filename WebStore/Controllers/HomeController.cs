@@ -13,6 +13,15 @@ namespace WebStore.Controllers
             return View();
         }
 
-        public IActionResult Status(string Code) => Content($"Status code - {Code}");
+        public IActionResult Status(string id)
+        {
+            switch (id)
+            {
+                default: return Content($"Status --- {id}");
+                case "404": return View("NotFound");
+            }
+        }
+
+        public IActionResult ContactUs() => View();
     }
 }
