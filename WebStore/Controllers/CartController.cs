@@ -1,16 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using WebStore.Services.Interfaces;
 
 namespace WebStore.Controllers
 {
     public class CartController : Controller
     {
-        public IActionResult Index()
+        private readonly ICartService _CartService;
+
+        public CartController(ICartService CartService) => _CartService = CartService;
+
+        public IActionResult Index() => View(_CartService.GetViewModel());
+
+        public IActionResult Add(int Id)
         {
-            return View();
+            _CartService.Add(Id);
+            return RedirectToAction("Index", "Cart");
+        }
+
+        public IActionResult Decrement(int Id)
+        {
+            _CartService.Decrement(Id);
+            return RedirectToAction("Index", "Cart");
+        }
+
+        public IActionResult Remove(int Id)
+        {
+            _CartService.Remove(Id);
+            return RedirectToAction("Index", "Cart");
         }
     }
 }
