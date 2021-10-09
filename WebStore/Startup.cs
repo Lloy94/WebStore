@@ -100,8 +100,13 @@ namespace WebStore
                     await context.Response.WriteAsync("Hello World!");
                 });
 
+
                 endpoints.MapControllerRoute(
                     "default", "{controller=Home}/{action=Index}/{id?}");
+              
+                    endpoints.MapControllerRoute(
+                      name: "areas",
+                      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");              
             });
         }
     }
