@@ -71,6 +71,8 @@ namespace WebStore
             services.AddSingleton<IEmployeeData, InMemoryEmployeesData>();
             services.AddScoped<IProductData, SqlProductData>();
             services.AddScoped<ICartService, InCookiesCartService>();
+            services.AddScoped<IOrderService, SqlOrderService>();
+
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
         }
@@ -101,7 +103,13 @@ namespace WebStore
                 });
 
                 endpoints.MapControllerRoute(
+                      name: "areas",
+                      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
                     "default", "{controller=Home}/{action=Index}/{id?}");
+              
+                                
             });
         }
     }
