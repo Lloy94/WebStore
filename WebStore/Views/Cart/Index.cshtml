@@ -1,8 +1,5 @@
-﻿@model CartViewModel
-@{
-    ViewBag.Title = "Корзина";
-}
-
+﻿@model CartOrderViewModel
+@{ ViewBag.Title = "Корзина"; }
 
 <section id="cart_items">
     <div class="container">
@@ -25,41 +22,38 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var (product, quantity) in Model.Items)
+                    @foreach (var (product, quantity) in Model.Cart.Items)
                     {
-                        <tr>
-                            <td class="cart_product">
-                                <a href=""><img src="images/shop/@product.ImageUrl" alt=""></a>
-                            </td>
-                            <td class="cart_description">
-                                <h4><a href="">@product.Name</a></h4>
-                                <p>Артикул: @product.Id.ToString("0000000")</p>
-                            </td>
-                            <td class="cart_price">
-                                <p>@product.Price.ToString("C")</p>
-                            </td>
-                            <td class="cart_quantity">
-                                <div class="cart_quantity_button">
-                                    <a class="cart_quantity_up" asp-action="Add" asp-route-Id="@product.Id"> + </a>
-                                    <input class="cart_quantity_input" type="text" name="quantity" value="@quantity" autocomplete="off" size="2">
-                                    <a class="cart_quantity_down" asp-action="Decrement" asp-route-Id="@product.Id"> - </a>
-                                </div>
-                            </td>
-                            <td class="cart_total">
-                                <p class="cart_total_price">@((product.Price * quantity).ToString("C"))</p>
-                            </td>
-                            <td class="cart_delete">
-                                <a class="cart_quantity_delete" asp-action="Remove" asp-route-Id="@product.Id"><i class="fa fa-times"></i></a>
-                            </td>
-                        </tr>
-                    }
-
+        <tr>
+            <td class="cart_product">
+                <a href=""><img src="images/shop/@product.ImageUrl" alt=""></a>
+            </td>
+            <td class="cart_description">
+                <h4><a href="">@product.Name</a></h4>
+                <p>Артикул: @product.Id.ToString("0000000")</p>
+            </td>
+            <td class="cart_price">
+                <p>@product.Price.ToString("C")</p>
+            </td>
+            <td class="cart_quantity">
+                <div class="cart_quantity_button">
+                    <a class="cart_quantity_up" asp-action="Add" asp-route-Id="@product.Id"> + </a>
+                    <input class="cart_quantity_input" type="text" name="quantity" value="@quantity" autocomplete="off" size="2">
+                    <a class="cart_quantity_down" asp-action="Decrement" asp-route-Id="@product.Id"> - </a>
+                </div>
+            </td>
+            <td class="cart_total">
+                <p class="cart_total_price">@((product.Price * quantity).ToString("C"))</p>
+            </td>
+            <td class="cart_delete">
+                @@ -53,7 +52,6 @@
+            </td>
+        </tr>}
                 </tbody>
             </table>
         </div>
     </div>
 </section> <!--/#cart_items-->
-
 <section id="do_action">
     <div class="container">
         <div class="heading">
@@ -96,7 +90,6 @@
                                 <option>Канада</option>
                                 <option>Дубаи</option>
                             </select>
-
                         </li>
                         <li class="single_field">
                             <label>Область/штат:</label>
@@ -110,7 +103,6 @@
                                 <option>Канада</option>
                                 <option>Дубаи</option>
                             </select>
-
                         </li>
                         <li class="single_field zip-field">
                             <label>Индакс:</label>
@@ -125,7 +117,7 @@
                 <div class="total_area">
                     <ul>
                         <li>Стоимость доставки <span>Free</span></li>
-                        <li>Итого <span>@Model.TotalPrice</span></li>
+                        <li>Итого <span>@Model.Cart.TotalPrice</span></li>
                     </ul>
                     <a class="btn btn-default update" href="">Обновить</a>
                     <a class="btn btn-default check_out" href="">Оформить заказ</a>
