@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using WebStore.Data;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Domain.Models;
 using WebStore.Domain.ViewModels;

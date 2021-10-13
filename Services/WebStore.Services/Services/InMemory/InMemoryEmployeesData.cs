@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using WebStore.Data;
 using WebStore.Domain.Models;
 using WebStore.Interfaces.Services;
+using WebStore.Services.Data;
 
-namespace WebStore.Services
+namespace WebStore.Services.Services.InMemory
 {
     public class InMemoryEmployeesData : IEmployeeData
     {
@@ -21,7 +21,7 @@ namespace WebStore.Services
             _CurrentMaxId = TestData.Employees.Max(e => e.Id);
         }
 
-        public IEnumerable<Employee> GetAll ()
+        public IEnumerable<Employee> GetAll()
         {
             return TestData.Employees;
         }

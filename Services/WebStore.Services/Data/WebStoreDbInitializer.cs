@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using WebStore.DAL.Context;
 using WebStore.Domain.Entities.Identity;
 
-namespace WebStore.Data
+namespace WebStore.Services.Data
 {
     public class WebStoreDbInitializer
     {
@@ -33,7 +33,7 @@ namespace WebStore.Data
 
         public async Task InitializeAsync()
         {
-            _Logger.LogInformation("Запуск инициализации БД");         
+            _Logger.LogInformation("Запуск инициализации БД");
 
             var pending_migrations = await _db.Database.GetPendingMigrationsAsync();
             var applied_migrations = await _db.Database.GetAppliedMigrationsAsync();
