@@ -9,12 +9,12 @@ using Microsoft.Extensions.Hosting;
 using WebStore.DAL.Context;
 using WebStore.Data;
 using WebStore.Services;
-using WebStore.Services.Interfaces;
 using WebStore.Services.InSQL;
 using System;
 using WebStore.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using WebStore.Services.InCookies;
+using WebStore.Interfaces.Services;
 
 namespace WebStore
 {
