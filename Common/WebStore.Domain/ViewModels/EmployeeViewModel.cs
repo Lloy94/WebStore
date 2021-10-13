@@ -5,18 +5,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebStore.ViewModels
+namespace WebStore.Domain.ViewModels
 {
-    public class EmployeeViewModel: IValidatableObject
+    public class EmployeeViewModel : IValidatableObject
     {
-        [HiddenInput(DisplayValue=false)]
+        [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
         [Display(Name = "Возраст")]
         [Range(18, 80, ErrorMessage = "Возраст должнен быть от 18 до 80 лет")]
         public int Age { get; set; }
 
-        [Display(Name=("Имя"))]
+        [Display(Name = "Имя")]
         [Required(ErrorMessage = "Имя не указано")]
         [StringLength(200, MinimumLength = 2, ErrorMessage = "Длина от 2 до 200 символов")]
         [RegularExpression(@"([А-ЯЁ][а-яё]+)|([A-Z][a-z]+)", ErrorMessage = "Неверный формат")]
